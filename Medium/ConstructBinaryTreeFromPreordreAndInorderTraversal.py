@@ -26,6 +26,23 @@ class Solution:
             return(TreeNode(head, None, None))
         #print(leftInorder, rightInorder, leftPreorder, rightPreorder)
 
-        
+### SAME BUT BETTER WRITTEN   
+'''
+class Solution:
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
 
+        preorder = deque(preorder)
+
+        def build(preorder, inorder):
+            if inorder:
+                idx = inorder.index(preorder.popleft())
+                root = TreeNode(inorder[idx])
+
+                root.left = build(preorder, inorder[:idx])
+                root.right = build(preorder, inorder[idx+1:])
+
+                return root
+
+        return build(preorder, inorder)
+'''
 Solution().buildTree([3,9,10,20,15,11,7], [10,9,3,11,15,20,7])
