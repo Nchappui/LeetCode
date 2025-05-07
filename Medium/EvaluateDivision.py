@@ -7,15 +7,15 @@ class Solution:
             oldpairs = pairs.copy()
             for j in range(len(newPair)):
                     for pair in oldpairs:
-                        if newPair[j] in pair:
+                        if newPair[j] in pair and newPair[j-1] not in pair:
                             newLetter = pair[pair.index(newPair[j])-1]
                             commonLetter = newPair[j]
                             otherLetter = newPair[j-1]
-                            if ((newLetter, otherLetter) in equationDict) : return
-                            equationDict[newLetter, otherLetter] = equationDict[newLetter, commonLetter] * equationDict[commonLetter, otherLetter]
-                            equationDict[otherLetter, newLetter] = 1 / equationDict[newLetter, otherLetter]
-                            pairs.append([newLetter, otherLetter])
-                            checkPair([newLetter, otherLetter])
+                            if ((newLetter, otherLetter) not in equationDict):
+                                equationDict[newLetter, otherLetter] = equationDict[newLetter, commonLetter] * equationDict[commonLetter, otherLetter]
+                                equationDict[otherLetter, newLetter] = 1 / equationDict[newLetter, otherLetter]
+                                pairs.append([newLetter, otherLetter])
+                                checkPair([newLetter, otherLetter])
         equationDict = {}
         pairs= []
         letters = set()
@@ -34,6 +34,27 @@ class Solution:
             if query[0] == query[1] and query[0] in letters:
                 res[-1] = 1
         return res
+    ### Rien compris mdr
+    def calcEquation2(self, equations, values, queries):
+        g={}
+        for (a,b),v in zip(equations,values):
+            g.setdefault(a,{})[b]=v
+            g.setdefault(b,{})[a]=1.0/v
+        def f(x,y):
+            if x not in g or y not in g:
+                return -1.0
+            s=[(x,1.0)]
+            v=set()
+            while s:
+                c,r=s.pop()
+                if c==y:
+                    return r
+                v.add(c)
+                for n in g[c]:
+                    if n not in v:
+                        s.append((n,r*g[c][n]))
+            return -1.0
+        return [f(a,b) for a,b in queries]
 
 
             
