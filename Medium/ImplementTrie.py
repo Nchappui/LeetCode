@@ -61,6 +61,40 @@ class BinarySearchTree:
             return False
         
 
+class TrieNode:
+    def __init__(self):
+        self.children = {}  # Dictionnaire pour les enfants
+        self.is_end = False  # Indique si c'est la fin d'un mot
+
+
+class Trie:
+
+    def __init__(self):
+        self.root = TrieNode()
+
+    def insert(self, word: str) -> None:
+        curr = self.root
+        for letter in word:
+            if letter not in curr.children:
+                curr.children[letter] = TrieNode()
+            curr = curr.children[letter]
+        curr.is_end = True  # Marquer la fin du mot
+
+    def search(self, word: str) -> bool:
+        curr = self.root
+        for letter in word:
+            if letter not in curr.children:
+                return False
+            curr = curr.children[letter]
+        return curr.is_end  # Vérifie si c'est la fin d'un mot
+
+    def startsWith(self, prefix: str) -> bool:
+        curr = self.root
+        for letter in prefix:
+            if letter not in curr.children:
+                return False
+            curr = curr.children[letter]
+        return True  # Si on peut parcourir tout le préfixe, il existe
 
 # Your Trie object will be instantiated and called as such:
 obj = Trie()
