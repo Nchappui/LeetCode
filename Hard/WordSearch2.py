@@ -5,18 +5,19 @@ class SolutionFalse:
     def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
         tree = {}
 
-        def contructTries(taken: List[tuple], x, y, currentTree):
-            if 0 <= x < len(board) and 0 <= y < len(board[0]) and (x,y) not in taken:
-                if board[x][y] not in currentTree.keys():
-                    currentTree[board[x][y]] = {}
-                taken.append((x,y))
-                takenCopy=taken.copy()
-                temp = currentTree[board[x][y]]
-                contructTries(takenCopy, x+1, y, temp)
-                contructTries(takenCopy, x-1, y, temp)
-                contructTries(takenCopy, x, y+1, temp)
-                contructTries(takenCopy, x, y-1, temp)
-                
+        def contructTries(x, y, currentTree):
+            if 0 <= x < len(board) and 0 <= y < len(board[0]):
+                node = currentTree
+                temp, board[x][y] = board[x][y], "@"
+                if board[x][y] not in node:
+                    node[temp] = {}
+                    node=node[temp]
+                for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+                    nx, ny = x + dx, y + dy
+                    if 0 <= nx < len(board) and 0 <= ny < len(board[0]) and board[nx][ny] !="@":
+                        contructTries(nx, ny, node)
+                board[x][y] = temp
+                currentTree = node
 
         def searchWord(word, currentTree):
             for letter in word:
@@ -27,8 +28,7 @@ class SolutionFalse:
         
         for x in range(len(board)):
             for y in range(len(board[0])):
-                taken = list()
-                contructTries(taken, x, y, tree)
+                contructTries(x, y, tree)
 
         res = []
         for word in words:
@@ -83,7 +83,12 @@ class Solution:
 
         return list(result)
 
-print(Solution().findWords([["c","d"],
+print(SolutionFalse().findWords([["a","b","c"],
+                                 ["a","e","d"],
+                                 ["a","f","g"]],
+                            ["abcdefg","gfedcbaaa","eaabcdgfa","befa","dgc","ade"]))
+
+print(SolutionFalse().findWords([["c","d"],
                             ["b","a"]],
                             ["abc","abcd"]))
 
