@@ -69,4 +69,30 @@ class Solution:
         print(candies)
         return sum(candies)
     
-print(Solution().candy2([1,2,87,87,87,2,1]))
+
+    def reCandy(self, ratings: List[int]) -> int:
+        n = len(ratings)
+        if n==1: return 1
+        candies = [1] * n
+
+        def isSatisfied(curr, prev):
+            if ratings[curr] > ratings[prev]:
+                return candies[curr] > candies[prev]
+            else:
+                return True
+            
+        for i in range(1,n):
+            if not isSatisfied(i,i-1):
+                candies[i] = candies[i-1] + 1
+                
+        for i in range(n-2,-1,-1):
+            if not isSatisfied(i,i+1):
+                candies[i] = candies[i+1] + 1
+            
+        print(candies)
+        return sum(candies)
+
+
+    
+print(Solution().reCandy([1,0,2]))
+print(Solution().reCandy([1,2,3,3,3,2,1]))
