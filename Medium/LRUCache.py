@@ -47,9 +47,9 @@ class LRUCache:
             self.tail.next = ListNode([key,value], None)
             self.tail.next.prev = self.tail
             self.tail = self.tail.next
-            self.hashMapValues.pop(self.head.val[0])
-            self.head = self.head.next
-            self.head.prev = None
+            self.hashMapValues.pop(self.head.val[0]) # type: ignore
+            self.head = self.head.next # type: ignore
+            self.head.prev = None # type: ignore
             self.hashMapValues[key] = self.tail
 
 
@@ -58,10 +58,10 @@ class LRUCache:
         if self.countSize == 1 or self.tail == self.hashMapValues[key]:
             pass
         ## Element is the head -> shift it to last place
-        elif self.head.val[0] == key:
-            value = self.head.val[1]
-            self.head = self.head.next
-            self.head.prev = None
+        elif self.head.val[0] == key:# type: ignore
+            value = self.head.val[1]# type: ignore
+            self.head = self.head.next# type: ignore
+            self.head.prev = None# type: ignore
             self.tail.next = ListNode([key,value], None)
             self.tail.next.prev = self.tail
             self.tail = self.tail.next

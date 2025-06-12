@@ -18,7 +18,7 @@ class MinStack:
         
 
     def getMin(self) -> int:
-        return self.current_min
+        return self.current_min # type: ignore
         
 
 

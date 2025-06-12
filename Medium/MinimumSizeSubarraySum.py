@@ -28,6 +28,6 @@ class Solution:
             if currentRes >= target and end-start < currentBest:
                 currentBest = end-start
 
-        return currentBest if currentBest != float('inf') else 0      
+        return currentBest if currentBest != float('inf') else 0       # type: ignore
 
 print(Solution().minSubArrayLen(7,[1,1,1,1,7]))

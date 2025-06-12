@@ -24,7 +24,7 @@ class Solution:
             k = k - 1
             inOrder(root.right)
         inOrder(root)
-        return result
+        return result# type: ignore
         
 
     '''
