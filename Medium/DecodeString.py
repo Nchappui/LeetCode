@@ -35,5 +35,3 @@ class Solution:
 print(Solution().decodeString("100[leetcode]"))
 print(Solution().decodeString("3[a2[c4[d]]]"))
 print(Solution().decodeString("aa3[2[b]3[c]]zz"))
-print(Solution().decodeString("aa3[2[b]3[c]]zz"))
-print(Solution().decodeString("aa3[2[b]3[c]]zz"))
