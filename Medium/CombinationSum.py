@@ -21,7 +21,7 @@ class Solution:
 
             return res
 
-        return make_combination(0, [], 0)
+        return make_combination(0, [], 0) # type: ignore
     
 print(Solution().combinationSum([2,3,6,7],7))
 print(Solution().combinationSum([2,3,5],8))
